@@ -5,8 +5,8 @@ This problem provides practice at:
   ***  IMPLEMENTING CLASSES.  ***
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Hao Jiang.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ########################################################################
 # Students:
@@ -34,13 +34,12 @@ import sys
 
 def main():
     """ Calls the   TEST   functions in this module. """
-
     ####################################################################
     # UN-comment tests as you work the problems.
     ####################################################################
 
-#     run_test_init()
-#     run_test_append_string()
+    run_test_init()
+    run_test_append_string()
 #     run_test_double()
 #     run_test_shrink()
 #     run_test_double_then_shrink()
@@ -93,8 +92,13 @@ class Box(object):
           :type contents: str
           :type volume: int
         """
+        self.volume = volume
+        self.contents = contents
+        if len(self.contents) > volume:
+            self.contents = ''
+
         # --------------------------------------------------------------
-        # TODO: 2. Implement and test this function.
+        # DONE: 2. Implement and test this function.
         #     See the testing code (below) for more examples.
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -134,6 +138,20 @@ class Box(object):
         Type hints:
           :type additional_contents: str
         """
+        s = ''
+        if len(self.contents) + len(additional_contents) > self.volume:
+            exceed_numbers = len(self.contents) + len(additional_contents) - self.volume
+            allow_numbers = len(additional_contents) - exceed_numbers
+            for k in range(exceed_numbers):
+                s = s + additional_contents[allow_numbers + k]
+            for k in range(allow_numbers):
+                self.contents = self.contents + additional_contents[k]
+            return s
+        else:
+            self.contents = self.contents + additional_contents
+            return s
+
+
         # --------------------------------------------------------------
         # TODO: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
