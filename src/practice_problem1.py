@@ -40,11 +40,11 @@ def main():
 
     run_test_init()
     run_test_append_string()
-#     run_test_double()
-#     run_test_shrink()
-#     run_test_double_then_shrink()
-#     run_test_reset()
-#     run_test_steal()
+    run_test_double()
+    run_test_shrink()
+    run_test_double_then_shrink()
+    run_test_reset()
+    run_test_steal()
 #     run_test_get_history()
 #     run_test_combined_box()
 
@@ -96,7 +96,8 @@ class Box(object):
         self.contents = contents
         if len(self.contents) > volume:
             self.contents = ''
-
+        self.initial_volume = self.volume
+        self.initial_contents = self.contents
         # --------------------------------------------------------------
         # DONE: 2. Implement and test this function.
         #     See the testing code (below) for more examples.
@@ -153,7 +154,7 @@ class Box(object):
 
 
         # --------------------------------------------------------------
-        # TODO: 3. Implement and test this function.
+        # DONE: 3. Implement and test this function.
         #     See the testing code (below) for more examples.
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -208,8 +209,12 @@ class Box(object):
           #   s is 'Robot Fun'   [this is the part of the doubled
           #                       contents that did NOT fit]
         """
+        return self.append_string(self.contents)
+
+
+
         # --------------------------------------------------------------
-        # TODO: 4. Implement and test this function.
+        # DONE: 4. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -257,8 +262,22 @@ class Box(object):
         Type hints:
           :type new_volume: int
         """
+        temp = self.contents
+        self.volume = new_volume
+        number_difference = len(temp) - new_volume
+        s = ''
+        if len(temp) > new_volume:
+            self.contents = ''
+            for k in range(new_volume):
+                self.contents = self.contents + temp[k]
+            for k in range(number_difference):
+                s = s + temp[new_volume + k]
+            return s
+        else:
+            self.contents = self.contents
+            return s
         # --------------------------------------------------------------
-        # TODO: 5. Implement and test this function.
+        # DONE: 5. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -313,8 +332,12 @@ class Box(object):
         Type hints:
           :type new_volume: int
         """
+        discard_1 = len(self.double())
+        discard_2 = len(self.shrink(new_volume))
+        n = discard_1 + discard_2
+        return n
         # --------------------------------------------------------------
-        # TODO: 6. Implement and test this function.
+        # DONE: 6. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -332,8 +355,10 @@ class Box(object):
           Changes this Box's contents and volume to whatever they were
           when this Box was constructed.
         """
+        self.contents = self.initial_contents
+        self.volume = self.initial_volume
         # --------------------------------------------------------------
-        # TODO: 7. Implement and test this function.
+        # DONE: 7. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -360,6 +385,9 @@ class Box(object):
         Type hints:
           :type other_box: Box
         """
+        box_2 = self.append_string(other_box.contents)
+        print(box_2)
+        other_box.contents = box_2
         # --------------------------------------------------------------
         # TODO: 8. Implement and test this function.
         #     The testing code is already written for you (above).
