@@ -45,8 +45,8 @@ def main():
     run_test_double_then_shrink()
     run_test_reset()
     run_test_steal()
-#     run_test_get_history()
-#     run_test_combined_box()
+    run_test_get_history()
+    run_test_combined_box()
 
 
 ########################################################################
@@ -98,6 +98,8 @@ class Box(object):
             self.contents = ''
         self.initial_volume = self.volume
         self.initial_contents = self.contents
+        self.before_reset = []
+        self.history = []
         # --------------------------------------------------------------
         # DONE: 2. Implement and test this function.
         #     See the testing code (below) for more examples.
@@ -355,6 +357,8 @@ class Box(object):
           Changes this Box's contents and volume to whatever they were
           when this Box was constructed.
         """
+        self.before_reset = [self.contents]
+        self.history = self.history + self.before_reset
         self.contents = self.initial_contents
         self.volume = self.initial_volume
         # --------------------------------------------------------------
@@ -389,7 +393,7 @@ class Box(object):
         print(box_2)
         other_box.contents = box_2
         # --------------------------------------------------------------
-        # TODO: 8. Implement and test this function.
+        # DONE: 8. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
@@ -431,6 +435,8 @@ class Box(object):
           h = b.get_history()
           #   h is now ['GoodGo', 'GoodBye']
         """
+        history = self.history
+        return history
         # --------------------------------------------------------------
         # TODO: 9. Implement and test this function.
         #     The testing code is already written for you (above).
@@ -457,8 +463,11 @@ class Box(object):
         Type hints:
           :type other_box: Box
         """
+        new_box_contents = self.contents + other_box.contents
+        new_box_volume = self.volume + other_box.volume
+        return Box(new_box_contents, new_box_volume)
         # --------------------------------------------------------------
-        # TODO: 10. Implement and test this function.
+        # DONE: 10. Implement and test this function.
         #     The testing code is already written for you (above).
         # --------------------------------------------------------------
         # --------------------------------------------------------------
